@@ -1,9 +1,9 @@
 
-<h1>➤oh-my-C</h1>
+<h1>» oh-my-C</h1>
 =======
 <p style="text-align:center;"><em>This repository contains my "C Language" examples.</em></p>
 =======
-<h3>»•Book Examples folder</h3>
+<h3>•Book Examples folder</h3>
 <em>This folder contains, my "Learning Programming with C" book examples.</em>
 
 <h3>•Lab Questions folder</h3>
