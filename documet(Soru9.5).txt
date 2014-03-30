@@ -1,0 +1,10 @@
+documetory of Soru9.5
+
+Entered as a positive integer from the keyboard according to 
+the values ​​in between the starting and ending numbers and pieces that find both my C porgram.
+
+1. You get starting and fnishing integer tip.
+2. You use 1 loops:
+	you find To section 2 of the remaining number.
+	
+3.You write prise number of both.
