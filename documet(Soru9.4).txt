@@ -1,9 +1,0 @@
-documetory of Soru9.4
-
-10 pieces of positive integers entered from the keyboard, which is the average of a single C program to find and display.
-
-1. You get number,single, avarage, toplam integer tip.
-2. You use 2 loops:
-	1.you get ten number from user.
-	2.you make total proces
-3.You write Aritmathic avarage.
