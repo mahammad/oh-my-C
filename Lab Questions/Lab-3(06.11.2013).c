@@ -16,6 +16,9 @@
 #include "stdio.h"
 #include "string.h"
 
+void UserAdd (int );
+int FindUser(int );
+
 struct root
 {
 	int ID[11];
@@ -23,35 +26,30 @@ struct root
 	char surName[10];
 	char Town[15];
 } user[100];
-/*This function provides 
-the user assign the values ​​from the array.*/
-user users[100];
-void UserRead (int i) {
-	printf("User ID     : "); 
-	scanf("%d", user[i].ID);
-	printf("User Name   : "); 
-	scanf("%s", user[i].name);
-	printf("User Surname: "); 
-	scanf("%s", user[i].surName);
-	printf("User Town   : "); 
-	scanf("%s", user[i].Town);		
-}
 /*These include the function of 
 the number of users you want to add members.*/
 void UserAdd (int x) {
 	for (int i = 0; i < x; i++)
 	{
-		UserRead();
-		printf("____________________\n");	
+		printf("User ID     : "); 
+		scanf("%d", user[i].ID);
+		printf("User Name   : "); 
+		scanf("%s", user[i].name);
+		printf("User Surname: "); 
+		scanf("%s", user[i].surName);
+		printf("User Town   : "); 
+		scanf("%s", user[i].Town);		
+		printf("____________________\n");
 	}
 }
-void FindUser(int i)
+int FindUser(int i,)
 {
-	printf("User ID     : %d\n", user[i].ID);
+	printf("User ID     : %d\n", user[i].ID[i]);
 	printf("User Name   : %s\n", user[i].name);
 	printf("User Surname: %s\n", user[i].surName);
 	printf("User Town   : %s\n", user[i].Town);
 	printf("_______________________");
+	return 0;
 }
 main() {
 	int many;
@@ -63,11 +61,15 @@ main() {
 	scanf("%s", search);
 	/*This method involves searching 
 	for added user control with the user.*/
-	if ((strcmp(user[i].name, search)) == 0 ) {
-		printf("You search %s ?\n",search);
-		printf("_______________________\n");
-		FindUser();
-	} 
-	else
-		printf("Error..!");
+	for (int i = 0; i < 100; i++)
+	{
+		if ((strcmp(user[i].name, search)) == 0 ) {
+			printf("You search %s ?\n",search);
+			printf("_______________________\n");
+			FindUser(i);
+			break;
+		} 
+		else
+			printf("Error..!");
+	}
 }
