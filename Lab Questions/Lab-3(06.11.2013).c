@@ -42,7 +42,7 @@ void UserAdd (int x) {
 		printf("____________________\n");
 	}
 }
-int FindUser(int i,)
+int FindUser(int i)
 {
 	printf("User ID     : %d\n", user[i].ID[i]);
 	printf("User Name   : %s\n", user[i].name);
