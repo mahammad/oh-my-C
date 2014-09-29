@@ -1,6 +1,6 @@
 
 ### "Programlamayı C ile öğreniyorum" kitap konu çalışma soruları
------
+=======
 
 #### Konu 7 Genel Giriş-Çıkış Fonksiyonları.
 
@@ -45,4 +45,4 @@
 
 
 -----
-Yanlış ve ya her hangi düzenlemelerinizi bekliyorum, Teşekkkürler :bowtie:
+Yanlış ve ya her hangi düzenlemelerinizi bekliyorum, Teşekkürler :bowtie:
