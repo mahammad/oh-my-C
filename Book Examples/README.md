@@ -10,7 +10,7 @@
 
 * [Soru 7.2](https://github.com/smehemmed/oh-my-C/blob/master/Book%20Examples/soru7.2.c)
 
-> Çap değeri klavyeden girilen kürenin hacmini hesaplayan C programı.( Pi = 3,1419 )
+    > Çap değeri klavyeden girilen kürenin hacmini hesaplayan C programı.( Pi = 3,1419 )
 
 * [Soru 7.9](https://github.com/smehemmed/oh-my-C/blob/master/Book%20Examples/soru7.9.c)
 
