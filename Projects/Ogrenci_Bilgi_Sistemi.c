@@ -5,15 +5,12 @@ int menu();
 int menuSecim(int );
 int Ogrenci_Ekle(int );
 void Ortalama(int );
-void Menu_Secim(int ,int );
-void Enyuksek_Sonuc(int );
+//void Enyuksek_Sonuc(int );
 
 //Topluluk Bildirimi(struct)
 struct ogrenci {
-	int no[10];
-	int Ders1[3];
-	int Ders2[3];
-	int Ders3[3];
+	int no;
+	int Ders[3];
 	char isim[20];
 }ekle[200];
 
@@ -29,39 +26,70 @@ int main() {
 	scanf("%d" ,&ogrenci_sayisi);
 	Ogrenci_Ekle(ogrenci_sayisi);
 	menu();
-	puts("Menu Seciniz : ");
+	printf("Menu Seciniz : ");
 	scanf("%d" ,&secim);
-	Menu_Secim(secim ,ogrenci_sayisi );
+	switch (secim)
+	{
+		case 1:
+		
+			break;
+		case 2:
+		
+			break;
+		case 3:
+		
+			break;
+		case 4:
+			
+			break;
+		case 5:
+			
+			break;
+		case 6: //Menu 6. secim
+			Ortalama(ogrenci_sayisi);
+			break;
+		case 7:
+			
+			break;
+		case 8:
+			
+			break;
+	//	default:
+			
+	}
+
 	return 0;
 }
 
 //Kullanıcının girdidi ogrenci sayisina gore tutulan kayıt
 int Ogrenci_Ekle(int x) {
-	//struct ogrenci ekle[200];
-	int i; 
+	int i, j, k = 0; 
 	for (i = 0; i < x; i++)
 	{
-		printf("Ogrenci isim: "); 
+		printf("Ogrenci isim : "); 
 		scanf("%s" ,ekle[i].isim);
-		printf("Ogreci No   : "); 
-		scanf("%d" ,ekle[i].no);
-		printf("1. Ders Notu :"); 
-		scanf("%d" ,ekle[i].Ders1);		
-		printf("2. Ders Notu :"); 
-		scanf("%d" ,ekle[i].Ders2);		
-		printf("3. Ders Notu :"); 
-		scanf("%d" ,ekle[i].Ders3);		
+		printf("Ogreci No    : "); 
+		scanf("%d" ,&ekle[i].no);
+		for (j = 0; j < 3; j++)
+		{
+			printf("%d. Ders Notu :" ,j+1); 
+			scanf("%d" ,&ekle[k].Ders[j]);				
+		}
+		k++;
+		puts(" ");	
 	}
+	int a = 0;
 	for (i = 0; i < x; i++)
 	{
-		int sayi = 0;
 		puts("\n------------------------------------------");
-		printf("%d. Ogrenci Isim: %s \n" ,i+1 ,ekle[i].isim);
-		printf("%d. Ogrenci No  : %d \n" ,i+1, ekle[i].no[sayi]);
-		printf("\n 1. Ders Notu : %d " ,ekle[i].Ders1[sayi]);
-		printf("\n 2. Ders Notu : %d " ,ekle[i].Ders2[sayi]);
-		printf("\n 3. Ders Notu : %d " ,ekle[i].Ders3[sayi]);
-		sayi++;
+		printf("%d. Ogrenci Isim : %s \n" ,i+1 ,ekle[i].isim);
+		printf("%d. Ogrenci No   : %d \n" ,i+1, ekle[i].no);
+
+		for (j = 0; j < 3; j++)
+		{
+			printf("\n %d. Ders Notu : %d ",j+1 ,ekle[a].Ders[j]);
+		}
+		a++;
 	}
 	return 0;
 }
@@ -88,60 +116,21 @@ void Enyuksek_Sonuc() {
 
 //Ortalamayı bulan fonksiyon
 void Ortalama(int ogr) {
-	int i,j,k, Ort1, Ort2, Ort3; 
-	int Ortalama1=0;
-	int Ortalama2=0;
-	int Ortalama3=0;
-
-	for (i = 0; i < ogr; i++)
-	{
-		Ort1 =+ ekle[i].Ders1[i];
+	int i,j,k =0;
+	int Ort[3] = {0,0,0}; //indislere başlanğıc değerleri 
+	int Ortalama[3];
+	
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < ogr; j++)
+		{
+			Ort[k] = Ort[k] + ekle[j].Ders[k];
+		}
+		Ortalama[i] = Ort[k]/ogr;
+		printf("%d . Dersin Ortalamasi: %d\n", i+1, Ortalama[i]);
+		k++;
 	}
-	Ortalama1 = Ort1/ogr;
-	printf("1. Dersin Ortalamasi: %d\n", Ortalama1);
-	for (j = 0; j < ogr; j++)
-	{
-		Ort2 =+ ekle[j].Ders2[i];
-	}
-	Ortalama2 = Ort2/ogr;
-	printf("2. Dersin Ortalamasi: %d\n", Ortalama2);
-	for (k = 0; k < ogr; k++)
-	{
-		Ort3 =+ ekle[k].Ders3[i];
-	}
-	Ortalama3 = Ort3/ogr;
-	printf("3. Dersin Ortalamasi: %d\n", Ortalama3);		
 }
 
 //Menu secimlerinin yapıldığı olay
 void Menu_Secim(int sec , int ogrc) {
-	switch (sec)
-	{
-		case 1:
-		
-			break;
-		case 2:
-		
-			break;
-		case 3:
-		
-			break;
-		case 4:
-			
-			break;
-		case 5:
-			
-			break;
-		case 6: //Menu 6. secim
-			Ortalama(ogrc);
-			break;
-		case 7:
-			
-			break;
-		case 8:
-			
-			break;
-	//	default:
-			
 	}
-}
