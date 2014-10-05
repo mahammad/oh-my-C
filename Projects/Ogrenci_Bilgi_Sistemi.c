@@ -1,3 +1,16 @@
+/*N adet öğrencinin (öğrenci sayısı kullanıcıdan alınacak)(menü aracılığıyla aşağıdaki işlemleri yapınız)
+
+· Öğrenci numarasını, ismini ve 3 ders için  sınav sonuçlarını kullanıcıdan isteyen metodu 
+· Okunan bu bilgileri giriş sırasına göre görüntüleyen metodu
+· Her dersin sınav sonuç ortalamasını bulan metodu
+· 60'dan küçük sınav sonuçlarını ve bu sonuçlara ait öğrenci numaralarını ve isimlerini görüntüleyen metodu,
+· Ortalamanın üstünde not alan öğrenci numaraları ve bu öğrencilere ait notları görüntüleyen metodu(her ders için ayrı liste yapınız)
+· 60'dan küçük sınav sonuç değerlerinin sayısını veren metodu,
+· En yüksek sınav sonucunu veren metodu(her ders için ayrı liste yapınız)
+· En düşük sınav sonucunu veren metodu (her ders için ayrı liste yapınız)
+· Genel sınav sonuçlarına  göre küçükten büyüğe sıralı olarak öğrenci numaralarını, isimlerini  ve sınav sonuçlarını görüntüleyen metodu(her öğrencinin 3 dersinin   ortalamasını bulup bu değere göre sıralayınız)
+· Öğrenci numaralarına göre küçükten büyüğe sıralı olarak öğrenci numaralarını, isimlerini ve sınav sonuçlarını görüntüleyen metodu  yazınız
+*/
 #include <stdio.h>
 
 //prototipe ler
@@ -5,7 +18,8 @@ int menu();
 int menuSecim(int );
 int Ogrenci_Ekle(int );
 void Ortalama(int );
-//void Enyuksek_Sonuc(int );
+void Enyuksek_Sonuc(int );
+void Kucuk_Degerler(int );
 
 //Topluluk Bildirimi(struct)
 struct ogrenci {
@@ -13,9 +27,6 @@ struct ogrenci {
 	int Ders[3];
 	char isim[20];
 }ekle[200];
-
-//Tüm fonksiyonlarda tanımlı olması icin
-
 
 //main
 int main() {
@@ -40,10 +51,10 @@ int main() {
 		
 			break;
 		case 4:
-			
+			Enyuksek_Sonuc(ogrenci_sayisi);
 			break;
 		case 5:
-			
+			Kucuk_Degerler(ogrenci_sayisi);
 			break;
 		case 6: //Menu 6. secim
 			Ortalama(ogrenci_sayisi);
@@ -55,9 +66,7 @@ int main() {
 			
 			break;
 	//	default:
-			
 	}
-
 	return 0;
 }
 
@@ -78,6 +87,7 @@ int Ogrenci_Ekle(int x) {
 		k++;
 		puts(" ");	
 	}
+	/*Okunan bu bilgileri giriş sırasına göre görüntüleyen metod*/
 	int a = 0;
 	for (i = 0; i < x; i++)
 	{
@@ -92,26 +102,6 @@ int Ogrenci_Ekle(int x) {
 		a++;
 	}
 	return 0;
-}
-
-//istek menüsu
-int menu() {
-	puts("\n\t\tOgrenmek istediginiz bilgi? ");
-	puts("\t¦¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¦");
-	puts("\t¦ 1. Genel Bilgi liste.               ¦");
-	puts("\t¦ 2. En Yuksek Sinav Sonucu.          ¦");
-	puts("\t¦ 3. En Dusuk  Sinav Sonucu.          ¦");
-	puts("\t¦ 4. Sonucu 60'dan dusuk Ogrenciler.  ¦");
-	puts("\t¦ 5. Sonucu 60'dan dusuk Ogr. Sayisi. ¦");
-	puts("\t¦ 6. Her Dersin Sinav Ortalamasi.     ¦");
-	puts("\t¦ 7. Ort. Ustu Not Alan Ogreciler.    ¦");
-	puts("\t¦ 8. Ogrenci Numarasina gore Liste.   ¦");
-	puts("\t¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
-	return 0;
-}
-//
-void Enyuksek_Sonuc() {
-	
 }
 
 //Ortalamayı bulan fonksiyon
@@ -130,7 +120,44 @@ void Ortalama(int ogr) {
 		k++;
 	}
 }
-
-//Menu secimlerinin yapıldığı olay
-void Menu_Secim(int sec , int ogrc) {
+/*60'dan küçük sınav sonuçlarını ve 
+ * bu sonuçlara ait öğrenci numaralarını ve isimlerini görüntüleyen metod*/
+void Enyuksek_Sonuc(int ogr) {
+	puts("\t60'dan Kucuk Sinav Sorulari ve Ogrenci Bilgileri.");
+	int i, j;
+	for (j = 0; j < ogr; j++) {
+		for (i = 0; i < 3; i++) {
+			if (ekle[j].Ders[i] < 60) {
+				printf("%d \t %s \t%d Ders Notu : %d \n",ekle[j].no ,ekle[j].isim , i+1 ,ekle[j].Ders[i]);
+			}
+		}
 	}
+}
+/*60'dan küçük sınav sonuç değerlerinin sayısını veren metod*/
+void Kucuk_Degerler(int ogr) {
+	int i, j, count = 0;
+	for (j = 0; j < ogr; j++) {
+		for (i = 0; i < 3; i++) {
+			if (ekle[j].Ders[i] < 60) {
+				count++;
+			}
+		}
+	}
+	printf("60'dan Kucuk Sinav Sonuclari Toplam Sayisi: %d ", count);
+}
+
+//istek menüsu
+int menu() {
+	puts("\n\t\tOgrenmek istediginiz bilgi? ");
+	puts("\t¦¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¦");
+	puts("\t¦ 1. Genel Bilgi liste.               ¦");
+	puts("\t¦ 2. En Yuksek Sinav Sonucu.          ¦");
+	puts("\t¦ 3. En Dusuk  Sinav Sonucu.          ¦");
+	puts("\t¦ 4. Sonucu 60'dan Kucuk Ogrenciler.  ¦");
+	puts("\t¦ 5. Sonucu 60'dan Kucuk Ogr. Sayisi. ¦");
+	puts("\t¦ 6. Her Dersin Sinav Ortalamasi.     ¦");
+	puts("\t¦ 7. Ort. Ustu Not Alan Ogreciler.    ¦");
+	puts("\t¦ 8. Ogrenci Numarasina gore Liste.   ¦");
+	puts("\t¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+	return 0;
+}
