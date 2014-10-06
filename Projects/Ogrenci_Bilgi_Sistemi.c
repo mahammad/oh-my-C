@@ -12,17 +12,19 @@
 · Öğrenci numaralarına göre küçükten büyüğe sıralı olarak öğrenci numaralarını, isimlerini ve sınav sonuçlarını görüntüleyen metodu  yazınız
 */
 #include <stdio.h>
+#include <stdlib.h>
 
 //prototipe ler
-int menu();
+void menu();
 int menuSecim(int );
 int Ogrenci_Ekle(int );
 void Ortalama(int );
 void Enyuksek_Sonuc(int );
 void Kucuk_Degerler(int );
 void Ortalama_Ustu(int ); 
-void En_Yuksek(int );
-int En_Dusuk(int );
+int En_Yuksek(int );
+void En_Dusuk(int );
+void Sirala_Kucukten(int );
 
 /*Farklı foksiyonlardan erişilmesi icin*/
 float ortalama[3];
@@ -69,7 +71,7 @@ int main() {
 			Ortalama_Ustu(ogrenci_sayisi); 
 			break;
 		case 8:
-			
+			Sirala_Kucukten(ogrenci_sayisi);
 			break;
 	//	default:
 	}
@@ -170,8 +172,8 @@ void Ortalama_Ustu(int ogr) {
 		}
 	}
 }
-/*En düşük sınav sonucunu veren metod*/
-int En_Dusuk(int ogr) {
+/**/
+int En_Yuksek(int ogr) {
 	int i, j, count;
 	
 	for (j = 0; j < ogr; j++)	{
@@ -185,39 +187,42 @@ int En_Dusuk(int ogr) {
 	}
 	return count;
 }
-/**/
-void En_Yuksek(int ogr) {
-	int k = 0, count = 0, i, j;
+/*En düşük sınav sonucunu veren metod*/
+void En_Dusuk(int ogr) {
+	int k, count, i, j;
 	for (k = 0; k < 3; k++) {
-		for (i = 0; i < ogr; i++) {
-			if (ekle[i].Ders[k] > ekle[i].Ders[k]  ) {
-				count = ekle[i].Ders[j+1];
-				ekle[i].Ders[k] = ekle[i].Ders[k];
-				ekle[i].Ders[k] = count;
+		for (i = ogr - 1; i > 0; i--) {
+			for (j=0; j < i; j++) {
+				if (ekle[j].Ders[k] > ekle[j+1].Ders[k]  ) {
+					count = ekle[i].Ders[j];
+					ekle[j].Ders[k] = ekle[j+1].Ders[k];
+					ekle[j+1].Ders[k] = count;
+				}
+				printf("%d Ders - %d \n" ,k+1 ,ekle[j].Ders[k]);					
 			}
-			printf("%s - %d \n" ,ekle[i].isim ,ekle[i].Ders[k]);					
-		}
-		puts("-------------------");
-	}
-}
+		}/* 2. for*/
+	}/* 1. for*/
+}/*foksiyon*/
+
 /*Öğrenci numaralarına göre küçükten büyüğe sıralı olarak öğrenci numaralarını, 
  * isimlerini ve sınav sonuçlarını görüntüleyen metod*/
-int Sirala_Kucukten(int ogr) {
+void Sirala_Kucukten(int ogr) {
 	int i, j, count;
-	
-	for (j = 0; j < ogr; j++)	{
-		count = ekle[j].Ders[0];
-		for (i = 0; i < 3; i++) {
-			if (ekle[j].Ders[i] < count) {
-				count = ekle[j].Ders[i];
+	for (i = 0; i < ogr; i++) {
+		for (j=0; j < i; j++) {
+			if (ekle[j].no > ekle[j+1].no  ) {
+				count = ekle[j].no;
+				ekle[j].no = ekle[j+1].no;
+				ekle[j+1].no = count;
 			}
-		}
-		printf("%s - En Dusuk Notu: %d \n",ekle[i].isim ,count);		
+			
+		}	
+	
 	}
-	return count;
+	printf("No: %d  \t Isım %s \t 1. Ders %d \t 2. Ders %d \t 3. Ders %d\n" , ekle[j].no, ekle[j].isim, ekle[j].Ders[0], ekle[j].Ders[1], ekle[j].Ders[2]);					
 }
 /*Program Menu Ekran Goruntusu*/
-int menu() {
+void menu() {
 	puts("\n\t\tOgrenmek istediginiz bilgi? ");
 	puts("\t¦¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¦");
 	puts("\t¦ 1. Genel Bilgi liste.               ¦");
@@ -229,5 +234,4 @@ int menu() {
 	puts("\t¦ 7. Ort. Ustu Not Alan Ogreciler No. ¦");
 	puts("\t¦ 8. Ogrenci Numarasina gore Liste.   ¦");
 	puts("\t¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
-	return 0;
 }
