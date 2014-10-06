@@ -20,7 +20,13 @@ int Ogrenci_Ekle(int );
 void Ortalama(int );
 void Enyuksek_Sonuc(int );
 void Kucuk_Degerler(int );
+void Ortalama_Ustu(int ); 
+void En_Yuksek(int );
+int En_Dusuk(int );
 
+/*Farklı foksiyonlardan erişilmesi icin*/
+float ortalama[3];
+int Ort[3] = {0,0,0}; //indislere başlanğıc değerleri 
 //Topluluk Bildirimi(struct)
 struct ogrenci {
 	int no;
@@ -45,10 +51,10 @@ int main() {
 		
 			break;
 		case 2:
-		
+			En_Yuksek(ogrenci_sayisi);
 			break;
 		case 3:
-		
+			En_Dusuk(ogrenci_sayisi);
 			break;
 		case 4:
 			Enyuksek_Sonuc(ogrenci_sayisi);
@@ -60,7 +66,7 @@ int main() {
 			Ortalama(ogrenci_sayisi);
 			break;
 		case 7:
-			
+			Ortalama_Ustu(ogrenci_sayisi); 
 			break;
 		case 8:
 			
@@ -106,17 +112,16 @@ int Ogrenci_Ekle(int x) {
 
 //Ortalamayı bulan fonksiyon
 void Ortalama(int ogr) {
-	int i,j,k =0;
+	int i,j,k =0;	
 	int Ort[3] = {0,0,0}; //indislere başlanğıc değerleri 
-	int Ortalama[3];
-	
+
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < ogr; j++)
 		{
 			Ort[k] = Ort[k] + ekle[j].Ders[k];
 		}
-		Ortalama[i] = Ort[k]/ogr;
-		printf("%d . Dersin Ortalamasi: %d\n", i+1, Ortalama[i]);
+		ortalama[i] = Ort[k]/ogr;
+		printf("%d . Dersin Ortalamasi: %.2f\n", i+1, ortalama[i]);
 		k++;
 	}
 }
@@ -145,8 +150,73 @@ void Kucuk_Degerler(int ogr) {
 	}
 	printf("60'dan Kucuk Sinav Sonuclari Toplam Sayisi: %d ", count);
 }
-
-//istek menüsu
+/*Ortalamanın üstünde not alan öğrenci numaraları ve 
+ * bu öğrencilere ait notları görüntüleyen metod*/
+void Ortalama_Ustu(int ogr) {
+		int i,j,k =0;	
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < ogr; j++)
+		{
+			Ort[k] = Ort[k] + ekle[j].Ders[k];
+		}
+		ortalama[i] = Ort[k]/ogr;
+		k++;
+	}
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < ogr; j++) {
+			if (ortalama[i] < ekle[j].Ders[i]) {
+				printf("Isim: %s - No: %d - %d Ders %d:\n",ekle[j].isim, ekle[j].no, i+1, ekle[j].Ders[i]);
+			}
+		}
+	}
+}
+/*En düşük sınav sonucunu veren metod*/
+int En_Dusuk(int ogr) {
+	int i, j, count;
+	
+	for (j = 0; j < ogr; j++)	{
+		count = ekle[j].Ders[0];
+		for (i = 0; i < 3; i++) {
+			if (ekle[j].Ders[i] < count) {
+				count = ekle[j].Ders[i];
+			}
+		}
+		printf("%s - En Dusuk Notu: %d \n",ekle[i].isim ,count);		
+	}
+	return count;
+}
+/**/
+void En_Yuksek(int ogr) {
+	int k = 0, count = 0, i, j;
+	for (k = 0; k < 3; k++) {
+		for (i = 0; i < ogr; i++) {
+			if (ekle[i].Ders[k] > ekle[i].Ders[k]  ) {
+				count = ekle[i].Ders[j+1];
+				ekle[i].Ders[k] = ekle[i].Ders[k];
+				ekle[i].Ders[k] = count;
+			}
+			printf("%s - %d \n" ,ekle[i].isim ,ekle[i].Ders[k]);					
+		}
+		puts("-------------------");
+	}
+}
+/*Öğrenci numaralarına göre küçükten büyüğe sıralı olarak öğrenci numaralarını, 
+ * isimlerini ve sınav sonuçlarını görüntüleyen metod*/
+int Sirala_Kucukten(int ogr) {
+	int i, j, count;
+	
+	for (j = 0; j < ogr; j++)	{
+		count = ekle[j].Ders[0];
+		for (i = 0; i < 3; i++) {
+			if (ekle[j].Ders[i] < count) {
+				count = ekle[j].Ders[i];
+			}
+		}
+		printf("%s - En Dusuk Notu: %d \n",ekle[i].isim ,count);		
+	}
+	return count;
+}
+/*Program Menu Ekran Goruntusu*/
 int menu() {
 	puts("\n\t\tOgrenmek istediginiz bilgi? ");
 	puts("\t¦¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¦");
@@ -156,7 +226,7 @@ int menu() {
 	puts("\t¦ 4. Sonucu 60'dan Kucuk Ogrenciler.  ¦");
 	puts("\t¦ 5. Sonucu 60'dan Kucuk Ogr. Sayisi. ¦");
 	puts("\t¦ 6. Her Dersin Sinav Ortalamasi.     ¦");
-	puts("\t¦ 7. Ort. Ustu Not Alan Ogreciler.    ¦");
+	puts("\t¦ 7. Ort. Ustu Not Alan Ogreciler No. ¦");
 	puts("\t¦ 8. Ogrenci Numarasina gore Liste.   ¦");
 	puts("\t¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
 	return 0;
