@@ -16,16 +16,15 @@
 
 //prototipe ler
 void menu();
-int menuSecim(int );
 int Ogrenci_Ekle(int );
 void Ortalama(int );
 void Enyuksek_Sonuc(int );
 void Kucuk_Degerler(int );
 void Ortalama_Ustu(int ); 
-int En_Yuksek(int );
-void En_Dusuk(int );
+void En_Yuksek(int );
+int En_Dusuk(int );
 void Sirala_Kucukten(int );
-//int Bubble_sort(int dizi[], int n);
+void Secim(int);
 
 /*Farklı foksiyonlardan erişilmesi icin*/
 float ortalama[3];
@@ -40,42 +39,26 @@ struct ogrenci {
 //main
 int main() {
 	int ogrenci_sayisi = 0;
-	int secim = 0;
+	char sec;
 	puts("\tOgrenci Bilgi Sistemine hosh geldiniz...");
 	printf("Ogrenci sayisini giriniz: "); 
 	scanf("%d" ,&ogrenci_sayisi);
 	Ogrenci_Ekle(ogrenci_sayisi);
 	menu();
-	printf("Menu Seciniz : ");
-	scanf("%d" ,&secim);
-	switch (secim)
-	{
-		case 1:
+	Secim(ogrenci_sayisi);
+
+	do {
+		printf("***************************************************\nDevam Etmek Istiyor musunuz? e (Evet)/ h (Hayir) :");
+		scanf("%s",&sec);
+		if (sec == 'h') break;
+		else
+		{
+				menu();
+			Secim(ogrenci_sayisi);
+		}
 		
-			break;
-		case 2:
-			En_Yuksek(ogrenci_sayisi);
-			break;
-		case 3:
-			En_Dusuk(ogrenci_sayisi);
-			break;
-		case 4:
-			Enyuksek_Sonuc(ogrenci_sayisi);
-			break;
-		case 5:
-			Kucuk_Degerler(ogrenci_sayisi);
-			break;
-		case 6: //Menu 6. secim
-			Ortalama(ogrenci_sayisi);
-			break;
-		case 7:
-			Ortalama_Ustu(ogrenci_sayisi); 
-			break;
-		case 8:
-			Sirala_Kucukten(ogrenci_sayisi);
-			break;
-	//	default:
-	}
+	} while(sec == 'e');
+	
 	return 0;
 }
 
@@ -100,7 +83,7 @@ int Ogrenci_Ekle(int x) {
 	int a = 0;
 	for (i = 0; i < x; i++)
 	{
-		puts("\n------------------------------------------");
+		puts("\n----------------------------");
 		printf("%d. Ogrenci Isim : %s \n" ,i+1 ,ekle[i].isim);
 		printf("%d. Ogrenci No   : %d \n" ,i+1, ekle[i].no);
 
@@ -173,8 +156,8 @@ void Ortalama_Ustu(int ogr) {
 		}
 	}
 }
-/**/
-int En_Yuksek(int ogr) {
+/*En yüksek sinav sonucunu veren metodu(her ders için ayri liste yapiniz)*/
+int En_Dusuk(int ogr) {
 	int i, j, count;
 	
 	for (j = 0; j < ogr; j++)	{
@@ -184,12 +167,12 @@ int En_Yuksek(int ogr) {
 				count = ekle[j].Ders[i];
 			}
 		}
-		printf("%s - En Dusuk Notu: %d \n",ekle[i].isim ,count);		
+		printf("%s - En Dusuk Notu: %d \n",ekle[j].isim ,count);		
 	}
 	return count;
 }
-/*En düşük sınav sonucunu veren metod*/
-void En_Dusuk(int ogr) {
+/*En düşük sinav sonucunu veren metod*/
+void En_Yuksek(int ogr) {
 	int k, count, i, j;
 	for (k = 0; k < 3; k++) {
 		for (i = ogr - 1; i > 0; i--) {
@@ -199,7 +182,7 @@ void En_Dusuk(int ogr) {
 					ekle[j].Ders[k] = ekle[j+1].Ders[k];
 					ekle[j+1].Ders[k] = count;
 				}
-				printf("%d Ders - %d \n" ,k+1 ,ekle[j].Ders[k]);					
+				printf("%d Ders - %d \n" ,j+1 ,ekle[j].Ders[k]);					
 			}
 		}/* 2. for*/
 	}/* 1. for*/
@@ -225,17 +208,48 @@ void Sirala_Kucukten(int  ogr) {
 		printf("No: %d  \t Isım %s \t 1. Ders %d \t 2. Ders %d \t 3. Ders %d\n" , ekle[k].no, ekle[k].isim, ekle[k].Ders[0], ekle[k].Ders[1], ekle[k].Ders[2]);
 	}			
 }
+void Secim(int ogr) {
+	int secim = 0;
+	printf("Menu Seciniz : ");
+	scanf("%d" ,&secim);
+	switch (secim)
+	{
+		case 1:
+			En_Yuksek(ogr);
+			break;
+		case 2:
+			En_Dusuk(ogr);
+			break;
+		case 3:
+			Enyuksek_Sonuc(ogr);
+			break;
+		case 4:
+			Kucuk_Degerler(ogr);
+			break;
+		case 5: 
+			Ortalama(ogr);
+			break;
+		case 6:
+			Ortalama_Ustu(ogr); 
+			break;
+		case 7:
+			Sirala_Kucukten(ogr);
+			break;
+		//default:
+		//puts("Lutfen Dogru Secim Yapiniz!");
+	}
+}
 /*Program Menu Ekran Goruntusu*/
 void menu() {
+	puts("\n###########################################################\n");
 	puts("\n\t\tOgrenmek istediginiz bilgi? ");
 	puts("\t¦¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¦");
-	puts("\t¦ 1. Genel Bilgi liste.               ¦");
-	puts("\t¦ 2. En Yuksek Sinav Sonucu.          ¦");
-	puts("\t¦ 3. En Dusuk  Sinav Sonucu.          ¦");
-	puts("\t¦ 4. Sonucu 60'dan Kucuk Ogrenciler.  ¦");
-	puts("\t¦ 5. Sonucu 60'dan Kucuk Ogr. Sayisi. ¦");
-	puts("\t¦ 6. Her Dersin Sinav Ortalamasi.     ¦");
-	puts("\t¦ 7. Ort. Ustu Not Alan Ogreciler No. ¦");
-	puts("\t¦ 8. Ogrenci Numarasina gore Liste.   ¦");
+	puts("\t¦ 1. Ogrencinin En Yuksek Ders Notu.  ¦");
+	puts("\t¦ 2. En Dusuk  Ders Notu.             ¦");
+	puts("\t¦ 3. Sonucu 60'dan Kucuk Ogrenciler.  ¦");
+	puts("\t¦ 4. Sonucu 60'dan Kucuk Ogr. Sayisi. ¦");
+	puts("\t¦ 5. Her Dersin Sinav Ortalamasi.     ¦");
+	puts("\t¦ 6. Ort. Ustu Not Alan Ogreciler No. ¦");
+	puts("\t¦ 7. Ogrenci Numarasina gore Liste.   ¦");
 	puts("\t¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
 }
