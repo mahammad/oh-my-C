@@ -25,6 +25,7 @@ void Ortalama_Ustu(int );
 int En_Yuksek(int );
 void En_Dusuk(int );
 void Sirala_Kucukten(int );
+//int Bubble_sort(int dizi[], int n);
 
 /*Farklı foksiyonlardan erişilmesi icin*/
 float ortalama[3];
@@ -206,20 +207,23 @@ void En_Dusuk(int ogr) {
 
 /*Öğrenci numaralarına göre küçükten büyüğe sıralı olarak öğrenci numaralarını, 
  * isimlerini ve sınav sonuçlarını görüntüleyen metod*/
-void Sirala_Kucukten(int ogr) {
-	int i, j, count;
-	for (i = 0; i < ogr; i++) {
-		for (j=0; j < i; j++) {
-			if (ekle[j].no > ekle[j+1].no  ) {
-				count = ekle[j].no;
-				ekle[j].no = ekle[j+1].no;
-				ekle[j+1].no = count;
-			}
-			
-		}	
+void Sirala_Kucukten(int  ogr) {
+	int i, j;
+	struct ogrenci Sekle;
 	
+	for ( i = 0; i < ogr; i++) {
+		for ( j=0; j < i; j++) {
+			if ( ekle[j].no > ekle[j+1].no) {
+				Sekle = ekle[j];
+				ekle[j] = ekle[j+1];
+				ekle[j+1] = Sekle;
+			}
+		}	
 	}
-	printf("No: %d  \t Isım %s \t 1. Ders %d \t 2. Ders %d \t 3. Ders %d\n" , ekle[j].no, ekle[j].isim, ekle[j].Ders[0], ekle[j].Ders[1], ekle[j].Ders[2]);					
+	int  k;
+	for ( k = 0; k < ogr; k++) {
+		printf("No: %d  \t Isım %s \t 1. Ders %d \t 2. Ders %d \t 3. Ders %d\n" , ekle[k].no, ekle[k].isim, ekle[k].Ders[0], ekle[k].Ders[1], ekle[k].Ders[2]);
+	}			
 }
 /*Program Menu Ekran Goruntusu*/
 void menu() {
