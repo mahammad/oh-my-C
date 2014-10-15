@@ -13,6 +13,7 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //prototipe ler
 void menu();
@@ -25,6 +26,7 @@ void En_Yuksek(int );
 int En_Dusuk(int );
 void Sirala_Kucukten(int );
 void Secim(int);
+void Return(int );
 
 /*Farklı foksiyonlardan erişilmesi icin*/
 float ortalama[3];
@@ -39,29 +41,39 @@ struct ogrenci {
 //main
 int main() {
 	int ogrenci_sayisi = 0;
-	char sec;
+	
 	puts("\tOgrenci Bilgi Sistemine hosh geldiniz...");
 	printf("Ogrenci sayisini giriniz: "); 
 	scanf("%d" ,&ogrenci_sayisi);
 	Ogrenci_Ekle(ogrenci_sayisi);
 	menu();
 	Secim(ogrenci_sayisi);
-
-	do {
-		printf("***************************************************\nDevam Etmek Istiyor musunuz? e (Evet)/ h (Hayir) :");
-		scanf("%s",&sec);
-		if (sec == 'h') break;
-		else
-		{
-				menu();
-			Secim(ogrenci_sayisi);
-		}
-		
-	} while(sec == 'e');
-	
+	Return(ogrenci_sayisi);
 	return 0;
 }
-
+void Return(int ogr) {
+    int sec,gir,ekle;
+	printf("***************************************************\nDevam Etmek Istiyor musunuz? 1 (Evet)/ 0 (Hayir) :");
+	scanf("%d" , &sec);		
+	if (sec == 1) {
+		for (;;) {	
+			menu();
+			Secim(ogr);
+			printf("Devam etmek istiyor musunuz? 1(Evet), 0(Hayir): ");
+			scanf("%d", &gir);
+			if (gir == 1) {
+				continue;
+			} else if(gir == 0) {
+				printf("Tekrar ögrenci eklemek ister misini? 1(Evet), 0(Hayir):");	
+				scanf("%d",&ekle);
+			if (ekle == 1) {
+					printf("===========================\nTEKRAR");
+					main();
+				} else if(gir == 0) break;
+			} 
+		}
+	} 
+}
 //Kullanıcının girdidi ogrenci sayisina gore tutulan kayıt
 int Ogrenci_Ekle(int x) {
 	int i, j, k = 0; 
@@ -99,7 +111,7 @@ int Ogrenci_Ekle(int x) {
 //Ortalamayı bulan fonksiyon
 void Ortalama(int ogr) {
 	int i,j,k =0;	
-	int Ort[3] = {0,0,0}; //indislere başlanğıc değerleri 
+	float Ort[3] = {0,0,0}; //indislere başlanğıc değerleri 
 
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < ogr; j++)
@@ -119,7 +131,7 @@ void Enyuksek_Sonuc(int ogr) {
 	for (j = 0; j < ogr; j++) {
 		for (i = 0; i < 3; i++) {
 			if (ekle[j].Ders[i] < 60) {
-				printf("%d \t %s \t%d Ders Notu : %d \n",ekle[j].no ,ekle[j].isim , i+1 ,ekle[j].Ders[i]);
+				printf("%d \t %d. Ders Notu : %d %s \t\n",ekle[j].no , i+1 ,ekle[j].Ders[i],ekle[j].isim );
 			}
 		}
 	}
@@ -130,12 +142,13 @@ void Kucuk_Degerler(int ogr) {
 	for (j = 0; j < ogr; j++) {
 		for (i = 0; i < 3; i++) {
 			if (ekle[j].Ders[i] < 60) {
-				count++;
+				count = count+1;
 			}
 		}
 	}
-	printf("60'dan Kucuk Sinav Sonuclari Toplam Sayisi: %d ", count);
+	printf("60'dan Kucuk Sinav Sonuclari Toplam Sayisi: %d \n", count);
 }
+
 /*Ortalamanın üstünde not alan öğrenci numaraları ve 
  * bu öğrencilere ait notları görüntüleyen metod*/
 void Ortalama_Ustu(int ogr) {
@@ -151,7 +164,7 @@ void Ortalama_Ustu(int ogr) {
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < ogr; j++) {
 			if (ortalama[i] < ekle[j].Ders[i]) {
-				printf("Isim: %s - No: %d - %d Ders %d:\n",ekle[j].isim, ekle[j].no, i+1, ekle[j].Ders[i]);
+				printf("No: %d - %d. Ders %d - %s\n", ekle[j].no, i+1, ekle[j].Ders[i],ekle[j].isim);
 			}
 		}
 	}
@@ -167,7 +180,7 @@ int En_Dusuk(int ogr) {
 				count = ekle[j].Ders[i];
 			}
 		}
-		printf("%s - En Dusuk Notu: %d \n",ekle[j].isim ,count);		
+		printf("En Dusuk Notu: %d - %s \n",count,ekle[j].isim);		
 	}
 	return count;
 }
@@ -175,17 +188,18 @@ int En_Dusuk(int ogr) {
 void En_Yuksek(int ogr) {
 	int k, count, i, j;
 	for (k = 0; k < 3; k++) {
-		for (i = ogr - 1; i > 0; i--) {
+		for (i = 0; i < ogr; i++) {
 			for (j=0; j < i; j++) {
-				if (ekle[j].Ders[k] > ekle[j+1].Ders[k]  ) {
-					count = ekle[i].Ders[j];
+				if (ekle[j].Ders[k] < ekle[j+1].Ders[k]  ) {
+					
+					count = ekle[j].Ders[k];
 					ekle[j].Ders[k] = ekle[j+1].Ders[k];
 					ekle[j+1].Ders[k] = count;
-				}
-				printf("%d Ders - %d \n" ,j+1 ,ekle[j].Ders[k]);					
+				}				
 			}
 		}/* 2. for*/
-	}/* 1. for*/
+		printf("%d. Ders - %d\n" ,k+1 ,ekle[j].Ders[k]);
+	} /*3. for*/	
 }/*foksiyon*/
 
 /*Öğrenci numaralarına göre küçükten büyüğe sıralı olarak öğrenci numaralarını, 
@@ -205,7 +219,7 @@ void Sirala_Kucukten(int  ogr) {
 	}
 	int  k;
 	for ( k = 0; k < ogr; k++) {
-		printf("No: %d  \t Isım %s \t 1. Ders %d \t 2. Ders %d \t 3. Ders %d\n" , ekle[k].no, ekle[k].isim, ekle[k].Ders[0], ekle[k].Ders[1], ekle[k].Ders[2]);
+		printf("No: %d  \t Isim %s \t 1. Ders %d \t 2. Ders %d \t 3. Ders %d\n" , ekle[k].no, ekle[k].isim, ekle[k].Ders[0], ekle[k].Ders[1], ekle[k].Ders[2]);
 	}			
 }
 void Secim(int ogr) {
@@ -245,7 +259,7 @@ void menu() {
 	puts("\n\t\tOgrenmek istediginiz bilgi? ");
 	puts("\t¦¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¦");
 	puts("\t¦ 1. Ogrencinin En Yuksek Ders Notu.  ¦");
-	puts("\t¦ 2. En Dusuk  Ders Notu.             ¦");
+	puts("\t¦ 2. Ogrencinin En Dusuk  Ders Notu.  ¦");
 	puts("\t¦ 3. Sonucu 60'dan Kucuk Ogrenciler.  ¦");
 	puts("\t¦ 4. Sonucu 60'dan Kucuk Ogr. Sayisi. ¦");
 	puts("\t¦ 5. Her Dersin Sinav Ortalamasi.     ¦");
