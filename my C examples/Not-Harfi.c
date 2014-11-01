@@ -21,3 +21,22 @@ int main() {
 	printf("Basar notu = %.2f\tHarf notu:%c",ortalama,harf);
 	return 0;
 }
+
+/*
+ * 
+int main() {
+	int vize, final;
+	char harf;
+	printf("Vize notunuz giriniz : "); scanf("%d",&vize);
+	printf("Final notunuz giriniz: "); scanf("%d",&final);
+	float ortalama = (vize*0.4) + (final*0.6);
+	if (ortalama  < 50 ) 
+	
+	if (ortalama  < 50 ) 
+		
+	if (ortalama  < 50 ) 
+		
+	if (ortalama  < 50 )
+	
+	return 0;
+}*/
