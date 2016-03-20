@@ -41,7 +41,14 @@ int main(int argc, char const *argv[])
 	for (i = 1; i < 1000000; i++)
 	{
 		int countDigit= numberDigitCount(i);
-		if (countDigit == 2)
+		if (countDigit == 1)
+		{
+			if (i == deger)
+			{
+				count++;
+			}
+		}
+		else if (countDigit == 2)
 		{
 			if (ikiBasamak(i) == deger)
 			{
